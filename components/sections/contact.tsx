@@ -54,8 +54,8 @@ export function Contact() {
     (step === 1 && form.budget && form.timeline) ||
     (step === 2 && form.name.trim().length >= 2 && /\S+@\S+\.\S+/.test(form.email));
 
-  const next = () => setStep((s) => Math.min(3, (s + 1) as Step));
-  const back = () => setStep((s) => Math.max(0, (s - 1) as Step));
+  const next = () => setStep((s) => Math.min(3, s + 1) as Step);
+  const back = () => setStep((s) => Math.max(0, s - 1) as Step);
 
   const submit = async () => {
     setStatus("submitting");
