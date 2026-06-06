@@ -140,6 +140,17 @@
   }
 }
 
+/* ── Neon gradient shift (used on CTA button) ─────────── */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0%   50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+/* ── Page background for dark neon theme ─────────────── */
+body {
+  background-color: #04030f;
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
