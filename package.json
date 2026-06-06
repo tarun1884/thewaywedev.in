@@ -21,9 +21,7 @@
     "next-themes": "^0.4.3",
     "zod": "^3.23.8",
     "resend": "^4.0.1",
-    "three": "^0.169.0",
-    "@react-three/fiber": "^8.17.10",
-    "@react-three/drei": "^9.115.0"
+    "three": "^0.169.0"
   },
   "devDependencies": {
     "typescript": "^5.6.3",
@@ -35,7 +33,7 @@
     "autoprefixer": "^10.4.20",
     "tailwindcss-animate": "^1.0.7",
     "@types/three": "^0.169.0",
-    "eslint": "^9.15.0",
+    "eslint": "^9.15.0"
     "eslint-config-next": "^15.1.6"
   }
 }

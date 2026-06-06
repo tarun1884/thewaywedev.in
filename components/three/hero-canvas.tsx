@@ -1,255 +1,260 @@
 "use client";
 
 import * as React from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Float } from "@react-three/drei";
 import * as THREE from "three";
 
-/* ─── Animated particles (spherical shell) ─── */
-function Particles({ count = 500 }: { count?: number }) {
-  const ref = React.useRef<THREE.Points>(null);
+type Floater = {
+  mesh: THREE.Mesh;
+  baseY: number;
+  floatSpeed: number;
+  rotDelta: { x: number; y: number; z: number };
+};
 
-  const geometry = React.useMemo(() => {
-    const geo = new THREE.BufferGeometry();
-    const positions = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
+export function HeroCanvas() {
+  const mountRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const mount = mountRef.current;
+    if (!mount) return;
+
+    /* ── Renderer ─────────────────────────────────── */
+    const W = mount.clientWidth;
+    const H = mount.clientHeight;
+
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      powerPreference: "high-performance",
+    });
+    renderer.setSize(W, H);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.setClearColor(0x000000, 0);
+    mount.appendChild(renderer.domElement);
+
+    /* ── Scene & Camera ───────────────────────────── */
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(52, W / H, 0.1, 100);
+    camera.position.z = 8;
+
+    /* ── Lights ───────────────────────────────────── */
+    scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+
+    const pl1 = new THREE.PointLight(0xa78bfa, 2.5, 30);
+    pl1.position.set(6, 6, 6);
+    scene.add(pl1);
+
+    const pl2 = new THREE.PointLight(0xec4899, 1.5, 30);
+    pl2.position.set(-6, -4, 4);
+    scene.add(pl2);
+
+    const pl3 = new THREE.PointLight(0x38bdf8, 1.0, 20);
+    pl3.position.set(0, 0, 8);
+    scene.add(pl3);
+
+    /* ── Main wireframe icosahedron ───────────────── */
+    const icosa = new THREE.Mesh(
+      new THREE.IcosahedronGeometry(2.4, 1),
+      new THREE.MeshStandardMaterial({
+        color: 0x7c3aed,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.65,
+      })
+    );
+    icosa.position.set(1.8, 0, -1);
+    scene.add(icosa);
+
+    /* ── Inner glowing sphere ─────────────────────── */
+    const glowCore = new THREE.Mesh(
+      new THREE.SphereGeometry(1.1, 32, 32),
+      new THREE.MeshStandardMaterial({
+        color: 0xc084fc,
+        emissive: 0x7c3aed,
+        emissiveIntensity: 0.8,
+        roughness: 0.1,
+        metalness: 0.9,
+        transparent: true,
+        opacity: 0.55,
+      })
+    );
+    glowCore.position.set(1.8, 0, -1);
+    scene.add(glowCore);
+
+    /* ── Particle cloud ───────────────────────────── */
+    const pCount = 500;
+    const pPositions = new Float32Array(pCount * 3);
+    for (let i = 0; i < pCount; i++) {
       const r = 4.5 + Math.random() * 5;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
-      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-      positions[i * 3 + 2] = r * Math.cos(phi);
+      pPositions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+      pPositions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+      pPositions[i * 3 + 2] = r * Math.cos(phi);
     }
-    geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    return geo;
-  }, [count]);
-
-  useFrame((state) => {
-    if (!ref.current) return;
-    ref.current.rotation.y = state.clock.elapsedTime * 0.04;
-    ref.current.rotation.x = state.clock.elapsedTime * 0.015;
-  });
-
-  const material = React.useMemo(
-    () =>
+    const pGeo = new THREE.BufferGeometry();
+    pGeo.setAttribute("position", new THREE.BufferAttribute(pPositions, 3));
+    const particles = new THREE.Points(
+      pGeo,
       new THREE.PointsMaterial({
-        color: "#a78bfa",
+        color: 0xa78bfa,
         size: 0.045,
         sizeAttenuation: true,
         transparent: true,
         opacity: 0.75,
         depthWrite: false,
-      }),
-    []
-  );
+      })
+    );
+    scene.add(particles);
 
-  return <points ref={ref} geometry={geometry} material={material} />;
-}
-
-/* ─── Main wireframe icosahedron ─── */
-function MainIcosahedron() {
-  const ref = React.useRef<THREE.Mesh>(null);
-  useFrame(({ clock }) => {
-    if (!ref.current) return;
-    ref.current.rotation.x = clock.elapsedTime * 0.18;
-    ref.current.rotation.y = clock.elapsedTime * 0.14;
-    ref.current.rotation.z = clock.elapsedTime * 0.08;
-  });
-  return (
-    <mesh ref={ref} position={[1.8, 0, -1]}>
-      <icosahedronGeometry args={[2.4, 1]} />
-      <meshStandardMaterial
-        color="#7c3aed"
-        wireframe
-        transparent
-        opacity={0.65}
-      />
-    </mesh>
-  );
-}
-
-/* ─── Inner glowing sphere ─── */
-function GlowCore() {
-  const ref = React.useRef<THREE.Mesh>(null);
-  useFrame(({ clock }) => {
-    if (!ref.current) return;
-    const s = 1 + Math.sin(clock.elapsedTime * 0.9) * 0.06;
-    ref.current.scale.setScalar(s);
-    ref.current.rotation.y = clock.elapsedTime * 0.12;
-  });
-  return (
-    <mesh ref={ref} position={[1.8, 0, -1]}>
-      <sphereGeometry args={[1.1, 32, 32]} />
-      <meshStandardMaterial
-        color="#c084fc"
-        emissive="#7c3aed"
-        emissiveIntensity={0.8}
-        roughness={0.1}
-        metalness={0.9}
-        transparent
-        opacity={0.55}
-      />
-    </mesh>
-  );
-}
-
-/* ─── Floating torus ─── */
-function FloatingTorus() {
-  const ref = React.useRef<THREE.Mesh>(null);
-  useFrame(({ clock }) => {
-    if (!ref.current) return;
-    ref.current.rotation.x = clock.elapsedTime * 0.4;
-    ref.current.rotation.z = clock.elapsedTime * 0.25;
-  });
-  return (
-    <Float speed={1.8} rotationIntensity={0.4} floatIntensity={0.7}>
-      <mesh ref={ref} position={[-2.6, -1.4, 0.5]}>
-        <torusGeometry args={[0.7, 0.28, 20, 40]} />
-        <meshStandardMaterial
-          color="#ec4899"
-          emissive="#9d174d"
-          emissiveIntensity={0.5}
-          roughness={0.2}
-          metalness={0.8}
-        />
-      </mesh>
-    </Float>
-  );
-}
-
-/* ─── Floating octahedron ─── */
-function FloatingOcta() {
-  return (
-    <Float speed={2.2} rotationIntensity={1.2} floatIntensity={0.9}>
-      <mesh position={[-3, 2.2, -0.8]}>
-        <octahedronGeometry args={[0.55]} />
-        <meshStandardMaterial
-          color="#38bdf8"
-          emissive="#0369a1"
-          emissiveIntensity={0.6}
-          roughness={0.15}
-          metalness={0.85}
-        />
-      </mesh>
-    </Float>
-  );
-}
-
-/* ─── Floating wireframe box ─── */
-function FloatingBox() {
-  const ref = React.useRef<THREE.Mesh>(null);
-  useFrame(({ clock }) => {
-    if (!ref.current) return;
-    ref.current.rotation.x = clock.elapsedTime * 0.3;
-    ref.current.rotation.y = clock.elapsedTime * 0.4;
-  });
-  return (
-    <Float speed={1.5} floatIntensity={0.5}>
-      <mesh ref={ref} position={[3.5, 2.2, -1.5]}>
-        <boxGeometry args={[0.65, 0.65, 0.65]} />
-        <meshStandardMaterial
-          color="#f59e0b"
-          emissive="#b45309"
-          emissiveIntensity={0.4}
-          roughness={0.3}
-          metalness={0.7}
-          wireframe
-        />
-      </mesh>
-    </Float>
-  );
-}
-
-/* ─── Small floating sphere ─── */
-function FloatingSphere() {
-  return (
-    <Float speed={2.5} rotationIntensity={0.5} floatIntensity={1.2}>
-      <mesh position={[4, -1.8, 0.2]}>
-        <sphereGeometry args={[0.35, 16, 16]} />
-        <meshStandardMaterial
-          color="#34d399"
-          emissive="#065f46"
-          emissiveIntensity={0.6}
-          roughness={0.2}
-          metalness={0.8}
-        />
-      </mesh>
-    </Float>
-  );
-}
-
-/* ─── Ring of dots around the icosahedron ─── */
-function Ring() {
-  const ref = React.useRef<THREE.Points>(null);
-
-  const geometry = React.useMemo(() => {
-    const geo = new THREE.BufferGeometry();
-    const count = 80;
-    const positions = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      const angle = (i / count) * Math.PI * 2;
-      positions[i * 3] = 1.8 + Math.cos(angle) * 3.2;
-      positions[i * 3 + 1] = Math.sin(angle) * 3.2;
-      positions[i * 3 + 2] = -1;
+    /* ── Orbit dot ring ───────────────────────────── */
+    const rCount = 80;
+    const rPositions = new Float32Array(rCount * 3);
+    for (let i = 0; i < rCount; i++) {
+      const a = (i / rCount) * Math.PI * 2;
+      rPositions[i * 3] = 1.8 + Math.cos(a) * 3.2;
+      rPositions[i * 3 + 1] = Math.sin(a) * 3.2;
+      rPositions[i * 3 + 2] = -1;
     }
-    geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    return geo;
-  }, []);
-
-  useFrame(({ clock }) => {
-    if (!ref.current) return;
-    ref.current.rotation.z = clock.elapsedTime * 0.1;
-  });
-
-  const material = React.useMemo(
-    () =>
+    const rGeo = new THREE.BufferGeometry();
+    rGeo.setAttribute("position", new THREE.BufferAttribute(rPositions, 3));
+    const ring = new THREE.Points(
+      rGeo,
       new THREE.PointsMaterial({
-        color: "#818cf8",
+        color: 0x818cf8,
         size: 0.07,
         sizeAttenuation: true,
         transparent: true,
         opacity: 0.6,
         depthWrite: false,
+      })
+    );
+    scene.add(ring);
+
+    /* ── Floating geometric shapes ────────────────── */
+    const floaters: Floater[] = [];
+
+    const addFloater = (
+      geo: THREE.BufferGeometry,
+      mat: THREE.Material,
+      pos: [number, number, number],
+      rotDelta: { x: number; y: number; z: number },
+      floatSpeed: number
+    ) => {
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.position.set(...pos);
+      scene.add(mesh);
+      floaters.push({ mesh, baseY: pos[1], floatSpeed, rotDelta });
+    };
+
+    // Torus — fuchsia
+    addFloater(
+      new THREE.TorusGeometry(0.7, 0.28, 20, 40),
+      new THREE.MeshStandardMaterial({
+        color: 0xec4899, emissive: 0x9d174d,
+        emissiveIntensity: 0.5, roughness: 0.2, metalness: 0.8,
       }),
-    []
-  );
+      [-2.6, -1.4, 0.5],
+      { x: 0.008, y: 0, z: 0.005 },
+      1.4
+    );
 
-  return <points ref={ref} geometry={geometry} material={material} />;
-}
+    // Octahedron — sky blue
+    addFloater(
+      new THREE.OctahedronGeometry(0.55),
+      new THREE.MeshStandardMaterial({
+        color: 0x38bdf8, emissive: 0x0369a1,
+        emissiveIntensity: 0.6, roughness: 0.15, metalness: 0.85,
+      }),
+      [-3, 2.2, -0.8],
+      { x: 0.009, y: 0.014, z: 0.006 },
+      1.8
+    );
 
-/* ─── Scene ─── */
-function Scene() {
-  return (
-    <>
-      {/* Lighting */}
-      <ambientLight intensity={0.4} />
-      <pointLight position={[6, 6, 6]} intensity={2.5} color="#a78bfa" />
-      <pointLight position={[-6, -4, 4]} intensity={1.5} color="#ec4899" />
-      <pointLight position={[0, 0, 8]} intensity={1} color="#38bdf8" />
+    // Box wireframe — amber
+    addFloater(
+      new THREE.BoxGeometry(0.65, 0.65, 0.65),
+      new THREE.MeshStandardMaterial({
+        color: 0xf59e0b, emissive: 0xb45309,
+        emissiveIntensity: 0.4, roughness: 0.3, metalness: 0.7, wireframe: true,
+      }),
+      [3.5, 2.2, -1.5],
+      { x: 0.005, y: 0.008, z: 0 },
+      1.2
+    );
 
-      {/* Objects */}
-      <Particles count={500} />
-      <Ring />
-      <MainIcosahedron />
-      <GlowCore />
-      <FloatingTorus />
-      <FloatingOcta />
-      <FloatingBox />
-      <FloatingSphere />
-    </>
-  );
-}
+    // Sphere — emerald
+    addFloater(
+      new THREE.SphereGeometry(0.35, 16, 16),
+      new THREE.MeshStandardMaterial({
+        color: 0x34d399, emissive: 0x065f46,
+        emissiveIntensity: 0.6, roughness: 0.2, metalness: 0.8,
+      }),
+      [4, -1.8, 0.2],
+      { x: 0, y: 0.006, z: 0.002 },
+      2.2
+    );
 
-/* ─── Exported canvas ─── */
-export function HeroCanvas() {
-  return (
-    <Canvas
-      camera={{ position: [0, 0, 8], fov: 52 }}
-      dpr={[1, 1.5]}
-      gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-      style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
-    >
-      <Scene />
-    </Canvas>
-  );
+    /* ── Animation loop ───────────────────────────── */
+    const clock = new THREE.Clock();
+    let animId: number;
+
+    const animate = () => {
+      animId = requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+
+      // Main icosahedron + core
+      icosa.rotation.x = t * 0.18;
+      icosa.rotation.y = t * 0.14;
+      icosa.rotation.z = t * 0.08;
+
+      glowCore.scale.setScalar(1 + Math.sin(t * 0.9) * 0.06);
+      glowCore.rotation.y = t * 0.12;
+
+      // Particles + ring
+      particles.rotation.y = t * 0.04;
+      particles.rotation.x = t * 0.015;
+      ring.rotation.z = t * 0.1;
+
+      // Floaters
+      for (const f of floaters) {
+        f.mesh.position.y = f.baseY + Math.sin(t * f.floatSpeed) * 0.38;
+        f.mesh.rotation.x += f.rotDelta.x;
+        f.mesh.rotation.y += f.rotDelta.y;
+        f.mesh.rotation.z += f.rotDelta.z;
+      }
+
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    /* ── Resize ───────────────────────────────────── */
+    const onResize = () => {
+      if (!mount) return;
+      const w = mount.clientWidth;
+      const h = mount.clientHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    };
+    window.addEventListener("resize", onResize);
+
+    /* ── Cleanup ──────────────────────────────────── */
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener("resize", onResize);
+      if (mount.contains(renderer.domElement)) {
+        mount.removeChild(renderer.domElement);
+      }
+      renderer.dispose();
+      scene.traverse((obj) => {
+        if (obj instanceof THREE.Mesh) {
+          obj.geometry.dispose();
+          const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+          mats.forEach((m) => m.dispose());
+        }
+      });
+    };
+  }, []);
+
+  return <div ref={mountRef} className="absolute inset-0 pointer-events-none" />;
 }
