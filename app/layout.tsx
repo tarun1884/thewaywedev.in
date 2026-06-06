@@ -103,10 +103,10 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${sans.variable} ${display.variable} ${mono.variable}`}
     >
-      <body className="min-h-screen bg-background text-foreground">
+      <body className="min-h-screen bg-[#fafafa] text-foreground">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >

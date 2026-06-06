@@ -30,8 +30,8 @@ export function Navbar() {
           className={cn(
             "flex items-center justify-between rounded-full border px-4 py-2 transition-all duration-300",
             scrolled
-              ? "border-border/60 bg-background/70 backdrop-blur-xl shadow-sm"
-              : "border-transparent bg-transparent"
+              ? "border-black/8 bg-white/80 backdrop-blur-xl shadow-sm"
+              : "border-black/6 bg-white/60 backdrop-blur-md"
           )}
           aria-label="Primary"
         >
@@ -50,7 +50,7 @@ export function Navbar() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                  className="rounded-full px-3 py-1.5 text-sm text-black/50 transition-colors hover:bg-black/5 hover:text-black"
                 >
                   {item.label}
                 </Link>
