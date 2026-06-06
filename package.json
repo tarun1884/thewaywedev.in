@@ -33,7 +33,7 @@
     "autoprefixer": "^10.4.20",
     "tailwindcss-animate": "^1.0.7",
     "@types/three": "^0.169.0",
-    "eslint": "^9.15.0"
+    "eslint": "^9.15.0",
     "eslint-config-next": "^15.1.6"
   }
 }
