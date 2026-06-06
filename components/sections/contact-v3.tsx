@@ -26,6 +26,7 @@ export function ContactV3() {
       id="contact"
       ref={ref}
       className="relative z-10 overflow-hidden py-40 sm:py-52"
+      style={{ background: "#04030f" }}
     >
       {/* Neon glow blobs */}
       <div aria-hidden className="pointer-events-none absolute inset-0">

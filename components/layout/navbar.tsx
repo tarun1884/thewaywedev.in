@@ -5,7 +5,6 @@ import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X, Sparkles, Command } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -71,7 +70,6 @@ export function Navbar() {
               <Command className="size-3" />
               <span>K</span>
             </button>
-            <ThemeToggle />
             <Button asChild size="sm" variant="accent" className="hidden sm:inline-flex">
               <Link href="/#contact">Start a project</Link>
             </Button>
