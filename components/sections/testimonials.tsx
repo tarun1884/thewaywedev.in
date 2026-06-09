@@ -55,9 +55,10 @@ export function Testimonials() {
     <section id="testimonials" className="relative py-24 sm:py-32">
       <div className="container-px mx-auto max-w-7xl">
         <SectionHeading
-          eyebrow="Why teams stay"
-          title={<>Clients we've grown with.</>}
+          eyebrow="Client Reviews"
+          title={<>What our clients say.</>}
           subtitle="120+ engagements. 94% client renewal. The kind of partnerships that compound."
+          align="center"
         />
 
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

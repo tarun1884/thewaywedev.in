@@ -1,6 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { Development } from "@/components/sections/development";
+import { Testimonials } from "@/components/sections/testimonials";
 
 const GlassConstellation = dynamic(() => import("@/components/r3f/scene"), {
   ssr: false,
@@ -50,5 +52,11 @@ const GlassConstellation = dynamic(() => import("@/components/r3f/scene"), {
 });
 
 export default function HomePage() {
-  return <GlassConstellation />;
+  return (
+    <>
+      <GlassConstellation />
+      <Development />
+      <Testimonials />
+    </>
+  );
 }
