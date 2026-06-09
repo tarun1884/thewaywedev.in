@@ -2,8 +2,9 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { Menu, X, Sparkles, Command } from "lucide-react";
+import { Menu, X, Command } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -35,14 +36,15 @@ export function Navbar() {
           )}
           aria-label="Primary"
         >
-          <Link
-            href="/"
-            className="flex items-center gap-2 font-display text-lg font-semibold"
-          >
-            <span className="grid size-8 place-items-center rounded-full bg-gradient-to-br from-violet-500 via-fuchsia-500 to-pink-500 text-white">
-              <Sparkles className="size-4" />
-            </span>
-            {siteConfig.name}
+          <Link href="/" className="flex items-center" aria-label={siteConfig.fullName}>
+            <Image
+              src="/logo-nav.png"
+              alt={siteConfig.fullName}
+              width={900}
+              height={349}
+              priority
+              className="h-9 w-auto sm:h-10"
+            />
           </Link>
 
           <ul className="hidden items-center gap-1 md:flex">

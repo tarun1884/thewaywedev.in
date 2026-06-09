@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Sparkles, Github, Twitter, Linkedin, Instagram, Dribbble } from "lucide-react";
+import Image from "next/image";
+import { Github, Twitter, Linkedin, Instagram, Dribbble } from "lucide-react";
 import { siteConfig } from "@/lib/site";
 
 const cols = [
@@ -50,11 +51,14 @@ export function Footer() {
       <div className="container-px relative mx-auto max-w-7xl py-16">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <Link href="/" className="inline-flex items-center gap-2 font-display text-xl font-semibold">
-              <span className="grid size-9 place-items-center rounded-full bg-gradient-to-br from-violet-500 via-fuchsia-500 to-pink-500 text-white">
-                <Sparkles className="size-4" />
-              </span>
-              {siteConfig.fullName}
+            <Link href="/" className="inline-flex items-center" aria-label={siteConfig.fullName}>
+              <Image
+                src="/logo.png"
+                alt={siteConfig.fullName}
+                width={900}
+                height={415}
+                className="h-16 w-auto"
+              />
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
               {siteConfig.description}
