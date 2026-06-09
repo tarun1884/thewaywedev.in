@@ -42,15 +42,15 @@ export default function GlassConstellation() {
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
         <Canvas
           camera={{ position: [0, 0, 8], fov: 55 }}
-          dpr={[1, 2]}
-          gl={{ antialias: true, alpha: true }}
+          dpr={[1, 1.5]}
+          gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         >
           {/*
             MANDATORY: Environment gives IBL cube map so MeshTransmissionMaterial
             has something to refract. Without this the glass looks flat/black.
           */}
           <Suspense fallback={null}>
-            <Environment preset="city" />
+            <Environment preset="city" resolution={128} />
           </Suspense>
 
           {/* Soft ambient fill so geometry isn't totally dark before lights load */}

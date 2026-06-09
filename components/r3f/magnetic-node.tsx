@@ -106,7 +106,7 @@ export function MagneticNode({
       onPointerEnter={() => { document.body.style.cursor = "pointer"; }}
       onPointerLeave={() => { document.body.style.cursor = "default"; }}
     >
-      <sphereGeometry args={[NODE_RADIUS, isMobile ? 32 : 64, isMobile ? 32 : 64]} />
+      <sphereGeometry args={[NODE_RADIUS, isMobile ? 24 : 48, isMobile ? 24 : 48]} />
 
       {/*
         MeshTransmissionMaterial requires an Environment cube map to render
@@ -123,8 +123,12 @@ export function MagneticNode({
         distortion={0.2}
         color="#f4f0fe"
         background={BG_COLOR}
-        temporalDistortion={0.05}
+        temporalDistortion={0}
         distortionScale={0.3}
+        /* ── Performance: share one low-res transmission buffer ── */
+        transmissionSampler
+        resolution={512}
+        samples={4}
       />
 
       {/* ── Icon + label rendered INSIDE the glass node ──────── */}
