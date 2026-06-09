@@ -4,6 +4,7 @@ import * as React from "react";
 import { Suspense, useState, useCallback, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
+import * as THREE from "three";
 import { motion, AnimatePresence } from "framer-motion";
 import { NodesGroup } from "./nodes-group";
 import { NodeCard } from "./node-card";
@@ -34,9 +35,7 @@ export default function GlassConstellation() {
           camera={{ position: [0, 0, 8], fov: 55 }}
           dpr={[1, 2]}
           gl={{ antialias: true, alpha: false }}
-          onCreated={({ gl }) => {
-            gl.setClearColor("#FAFAFA");
-          }}
+          scene={{ background: new THREE.Color("#FAFAFA") }}
         >
           {/*
             MANDATORY: Environment gives IBL cube map so MeshTransmissionMaterial

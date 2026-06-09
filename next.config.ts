@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
-  transpilePackages: ["three"],
+  transpilePackages: ["three", "@react-three/fiber", "@react-three/drei"],
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
