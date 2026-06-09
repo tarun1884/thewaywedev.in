@@ -18,7 +18,7 @@ interface Props {
 }
 
 export function NodesGroup({ activeId, isMobile, onSelect }: Props) {
-  const { camera, mouse } = useThree();
+  const { camera, pointer } = useThree();
 
   /* Mouse 3D position on the z=0 plane — written every frame */
   const mouse3D = useRef(new THREE.Vector3(999, 999, 0));
@@ -50,7 +50,7 @@ export function NodesGroup({ activeId, isMobile, onSelect }: Props) {
 
     /* ── Unproject mouse to world-space z=0 plane ──────── */
     if (!isMobile) {
-      _unproj.set(mouse.x, mouse.y, 0.5).unproject(cam);
+      _unproj.set(pointer.x, pointer.y, 0.5).unproject(cam);
       _dir.copy(_unproj).sub(cam.position).normalize();
       const dist = -cam.position.z / _dir.z;
       if (isFinite(dist) && dist > 0) {
