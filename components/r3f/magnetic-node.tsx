@@ -8,7 +8,7 @@ import * as THREE from "three";
 import type { NodeService } from "@/lib/node-services";
 
 /* ── Module-level constants — allocated once, never GC'd per frame ── */
-const BG_COLOR = new THREE.Color("#FAFAFA");
+const BG_COLOR = new THREE.Color("#f0ebfb");
 const _toMouse = new THREE.Vector3();   // node → mouse delta
 const _toTarget = new THREE.Vector3(); // node → spring target
 

@@ -146,9 +146,9 @@
   50%       { background-position: 100% 50%; }
 }
 
-/* ── Base page background (off-white for glass scene) ─── */
+/* ── Base page background (light lavender for glass scene) ─── */
 body {
-  background-color: #fafafa;
+  background-color: #efeafb;
 }
 
 /* Reduced motion */

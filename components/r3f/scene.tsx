@@ -4,7 +4,6 @@ import * as React from "react";
 import { Suspense, useState, useCallback, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
-import * as THREE from "three";
 import { motion, AnimatePresence } from "framer-motion";
 import { NodesGroup } from "./nodes-group";
 import { NodeCard } from "./node-card";
@@ -27,15 +26,24 @@ export default function GlassConstellation() {
   return (
     <div
       className="relative w-full overflow-hidden"
-      style={{ height: "100dvh", background: "#FAFAFA" }}
+      style={{
+        height: "100dvh",
+        /* Pastel aurora — lavender, pink & periwinkle blooms over a light base */
+        background: `
+          radial-gradient(ellipse 50% 45% at 82% 12%, rgba(244, 194, 221, 0.65), transparent 60%),
+          radial-gradient(ellipse 55% 50% at 14% 22%, rgba(199, 184, 240, 0.6), transparent 60%),
+          radial-gradient(ellipse 50% 55% at 88% 78%, rgba(196, 207, 246, 0.7), transparent 60%),
+          radial-gradient(ellipse 55% 50% at 16% 82%, rgba(226, 199, 240, 0.55), transparent 60%),
+          linear-gradient(160deg, #efeafb 0%, #f5f1fc 45%, #ece8fa 100%)
+        `,
+      }}
     >
-      {/* ── Z-0: Full-screen 3D Canvas ─────────────────────── */}
+      {/* ── Z-0: Full-screen 3D Canvas (transparent → aurora shows through) ── */}
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
         <Canvas
           camera={{ position: [0, 0, 8], fov: 55 }}
           dpr={[1, 2]}
-          gl={{ antialias: true, alpha: false }}
-          scene={{ background: new THREE.Color("#FAFAFA") }}
+          gl={{ antialias: true, alpha: true }}
         >
           {/*
             MANDATORY: Environment gives IBL cube map so MeshTransmissionMaterial
@@ -73,7 +81,7 @@ export default function GlassConstellation() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
               className="mb-4 text-[11px] font-semibold uppercase tracking-[0.25em]"
-              style={{ color: "rgba(0,0,0,0.35)" }}
+              style={{ color: "#8b5cf6" }}
             >
               Digital Services Studio
             </motion.p>
@@ -91,7 +99,18 @@ export default function GlassConstellation() {
             >
               Crafting Digital
               <br />
-              Experiences.
+              <span
+                style={{
+                  background:
+                    "linear-gradient(95deg, #7c3aed 0%, #d6339a 50%, #4f46e5 100%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  color: "transparent",
+                }}
+              >
+                Experiences.
+              </span>
             </motion.h1>
 
             <motion.p

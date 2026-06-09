@@ -8,7 +8,8 @@ const GlassConstellation = dynamic(() => import("@/components/r3f/scene"), {
     <div
       style={{
         height: "100dvh",
-        background: "#FAFAFA",
+        background:
+          "radial-gradient(ellipse 50% 45% at 82% 12%, rgba(244,194,221,0.65), transparent 60%), radial-gradient(ellipse 55% 50% at 14% 22%, rgba(199,184,240,0.6), transparent 60%), radial-gradient(ellipse 50% 55% at 88% 78%, rgba(196,207,246,0.7), transparent 60%), linear-gradient(160deg, #efeafb 0%, #f5f1fc 45%, #ece8fa 100%)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
