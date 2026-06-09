@@ -146,9 +146,9 @@
   50%       { background-position: 100% 50%; }
 }
 
-/* ── Page background for dark neon theme ─────────────── */
+/* ── Base page background (off-white for glass scene) ─── */
 body {
-  background-color: #04030f;
+  background-color: #fafafa;
 }
 
 /* Reduced motion */
