@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Field notes on design, code, motion, and AI from the Nova team.",
+  description: "Field notes on design, code, motion, and AI from the thewaywedev team.",
   alternates: { canonical: "/blog" },
 };
 

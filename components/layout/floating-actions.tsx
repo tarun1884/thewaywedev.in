@@ -34,7 +34,7 @@ export function FloatingActions() {
                 <MessageCircle className="size-4" />
               </div>
               <div className="flex-1">
-                <p className="text-sm font-semibold">Nova Concierge</p>
+                <p className="text-sm font-semibold">thewaywedev Concierge</p>
                 <p className="text-[11px] opacity-80">Typically replies in minutes</p>
               </div>
               <button

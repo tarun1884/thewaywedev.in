@@ -7,7 +7,7 @@ import { TiltCard } from "@/components/ui/tilt-card";
 
 const testimonials = [
   {
-    quote: "Nova rebuilt our marketing site in six weeks. Demo bookings tripled and our sales team finally believes the website is their best closer.",
+    quote: "thewaywedev rebuilt our marketing site in six weeks. Demo bookings tripled and our sales team finally believes the website is their best closer.",
     name: "Maya Chen",
     role: "VP Marketing, Lumen",
     rating: 5,
