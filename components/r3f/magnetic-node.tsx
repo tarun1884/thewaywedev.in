@@ -39,6 +39,7 @@ export function MagneticNode({
 }: Props) {
   const meshRef = useRef<THREE.Mesh>(null!);
   const velocity = useRef(new THREE.Vector3());
+  const Icon = service.icon;
 
   useFrame(({ clock }) => {
     const mesh = meshRef.current;
@@ -120,39 +121,60 @@ export function MagneticNode({
         ior={1.5}
         chromaticAberration={0.04}
         distortion={0.2}
-        color="#ffffff"
+        color="#f4f0fe"
         background={BG_COLOR}
         temporalDistortion={0.05}
         distortionScale={0.3}
       />
 
-      {/* ── Service label pill anchored below the sphere ─────── */}
+      {/* ── Icon + label rendered INSIDE the glass node ──────── */}
       <Html
         center
-        distanceFactor={8}
-        position={[0, -(NODE_RADIUS + 0.38), 0]}
+        distanceFactor={6.5}
+        position={[0, 0, 0]}
         style={{ pointerEvents: "none", userSelect: "none" }}
         zIndexRange={[1, 9]}
       >
         <div
           style={{
-            background: "rgba(255,255,255,0.88)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-            border: "1px solid rgba(255,255,255,0.95)",
-            borderRadius: "9999px",
-            padding: "5px 14px",
-            fontSize: "11px",
-            fontWeight: 700,
-            color: "#111111",
-            whiteSpace: "nowrap",
-            boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
-            letterSpacing: "-0.01em",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 10,
+            width: 130,
+            textAlign: "center",
             opacity: hasActive && !isActive ? 0.2 : 1,
             transition: "opacity 0.4s ease",
           }}
         >
-          {service.label}
+          {/* Tinted rounded-square icon chip */}
+          <div
+            style={{
+              display: "grid",
+              placeItems: "center",
+              width: 48,
+              height: 48,
+              borderRadius: 16,
+              background: `rgba(${service.rgb}, 0.16)`,
+              border: "1px solid rgba(255,255,255,0.7)",
+              boxShadow: "0 6px 18px rgba(0,0,0,0.08)",
+            }}
+          >
+            <Icon size={24} color={service.accent} strokeWidth={2} />
+          </div>
+
+          {/* Label */}
+          <span
+            style={{
+              fontSize: 13,
+              fontWeight: 700,
+              color: "#111111",
+              lineHeight: 1.2,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            {service.label}
+          </span>
         </div>
       </Html>
     </mesh>
