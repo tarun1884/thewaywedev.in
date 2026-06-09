@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, Check, Loader2, MessageCircle, Mail } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Loader2, MessageCircle, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { services } from "@/lib/services";
@@ -96,11 +96,18 @@ export function Contact() {
                   <p className="text-xs text-muted-foreground">{siteConfig.email}</p>
                 </div>
               </a>
+              <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} className="flex items-center gap-3 rounded-2xl border border-border/60 bg-card/60 p-4 backdrop-blur transition-colors hover:bg-card">
+                <div className="grid size-9 place-items-center rounded-xl bg-secondary"><Phone className="size-4" /></div>
+                <div>
+                  <p className="font-medium">Call us</p>
+                  <p className="text-xs text-muted-foreground">{siteConfig.phone}</p>
+                </div>
+              </a>
               <a href={whatsApp} target="_blank" rel="noreferrer" className="flex items-center gap-3 rounded-2xl border border-border/60 bg-card/60 p-4 backdrop-blur transition-colors hover:bg-card">
                 <div className="grid size-9 place-items-center rounded-xl bg-emerald-500/15 text-emerald-500"><MessageCircle className="size-4" /></div>
                 <div>
                   <p className="font-medium">WhatsApp</p>
-                  <p className="text-xs text-muted-foreground">+{siteConfig.whatsapp}</p>
+                  <p className="text-xs text-muted-foreground">{siteConfig.phone}</p>
                 </div>
               </a>
             </div>

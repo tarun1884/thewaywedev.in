@@ -100,11 +100,14 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-border/60 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center">
           <p>
-            © {new Date().getFullYear()} {siteConfig.fullName}. Crafted with care.
+            © {new Date().getFullYear()} {siteConfig.fullName}. Crafted with care since {siteConfig.since}.
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
             <Link href="/privacy" className="hover:text-foreground">Privacy</Link>
             <Link href="/terms" className="hover:text-foreground">Terms</Link>
+            <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} className="hover:text-foreground">
+              {siteConfig.phone}
+            </a>
             <a href={`mailto:${siteConfig.email}`} className="hover:text-foreground">
               {siteConfig.email}
             </a>
