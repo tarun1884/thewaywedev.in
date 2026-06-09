@@ -16,12 +16,12 @@ export const siteConfig = {
     github: "https://github.com/nova",
   },
   nav: [
-    { label: "Services", href: "/#services" },
-    { label: "Work", href: "/#work" },
-    { label: "Process", href: "/#process" },
-    { label: "Pricing", href: "/#pricing" },
+    { label: "Services", href: "/services" },
+    { label: "Work", href: "/portfolio" },
+    { label: "Process", href: "/process" },
+    { label: "Pricing", href: "/pricing" },
     { label: "Blog", href: "/blog" },
-    { label: "Contact", href: "/#contact" },
+    { label: "Contact", href: "/contact" },
   ],
 };
 

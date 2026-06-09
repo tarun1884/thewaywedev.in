@@ -12,6 +12,7 @@ import {
   Calculator,
   Sparkles,
   MessageCircle,
+  Compass,
 } from "lucide-react";
 
 type Item = {
@@ -24,12 +25,13 @@ type Item = {
 
 const ITEMS: Item[] = [
   { label: "Home", href: "/", icon: Home, group: "Navigate" },
-  { label: "Services", href: "/#services", icon: Sparkles, group: "Navigate" },
-  { label: "Work / Portfolio", href: "/#work", icon: Briefcase, group: "Navigate" },
-  { label: "Pricing", href: "/#pricing", icon: Calculator, group: "Navigate" },
+  { label: "Services", href: "/services", icon: Sparkles, group: "Navigate" },
+  { label: "Work / Portfolio", href: "/portfolio", icon: Briefcase, group: "Navigate" },
+  { label: "Process", href: "/process", icon: Compass, group: "Navigate" },
+  { label: "Pricing", href: "/pricing", icon: Calculator, group: "Navigate" },
   { label: "Blog", href: "/blog", icon: FileText, group: "Navigate" },
-  { label: "Contact", href: "/#contact", icon: Mail, group: "Navigate" },
-  { label: "Start a project", href: "/#contact", icon: MessageCircle, group: "Actions", hint: "Open inquiry form" },
+  { label: "Contact", href: "/contact", icon: Mail, group: "Navigate" },
+  { label: "Start a project", href: "/contact", icon: MessageCircle, group: "Actions", hint: "Open inquiry form" },
 ];
 
 export function CommandMenu() {

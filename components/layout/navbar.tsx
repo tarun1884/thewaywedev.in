@@ -71,7 +71,7 @@ export function Navbar() {
               <span>K</span>
             </button>
             <Button asChild size="sm" variant="accent" className="hidden sm:inline-flex">
-              <Link href="/#contact">Start a project</Link>
+              <Link href="/contact">Start a project</Link>
             </Button>
             <button
               type="button"
@@ -111,7 +111,7 @@ export function Navbar() {
               ))}
               <li className="pt-2">
                 <Button asChild variant="accent" className="w-full">
-                  <Link href="/#contact" onClick={() => setOpen(false)}>
+                  <Link href="/contact" onClick={() => setOpen(false)}>
                     Start a project
                   </Link>
                 </Button>

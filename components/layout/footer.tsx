@@ -18,20 +18,19 @@ const cols = [
   {
     heading: "Company",
     links: [
-      { label: "Work", href: "/#work" },
-      { label: "Process", href: "/#process" },
-      { label: "Pricing", href: "/#pricing" },
+      { label: "Work", href: "/portfolio" },
+      { label: "Process", href: "/process" },
+      { label: "Pricing", href: "/pricing" },
       { label: "Blog", href: "/blog" },
-      { label: "Contact", href: "/#contact" },
+      { label: "Contact", href: "/contact" },
     ],
   },
   {
     heading: "Resources",
     links: [
       { label: "Case studies", href: "/portfolio" },
-      { label: "Testimonials", href: "/#testimonials" },
-      { label: "FAQ", href: "/#faq" },
-      { label: "Book a call", href: "/#contact" },
+      { label: "FAQ", href: "/pricing#faq" },
+      { label: "Book a call", href: "/contact" },
     ],
   },
 ];
