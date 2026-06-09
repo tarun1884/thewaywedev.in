@@ -168,7 +168,7 @@ export function PricingCalculator() {
 
             <div className="space-y-2">
               <Button asChild variant="accent" className="w-full" size="lg">
-                <Link href="/#contact">
+                <Link href="/contact">
                   Send inquiry <MessageCircle className="size-4" />
                 </Link>
               </Button>

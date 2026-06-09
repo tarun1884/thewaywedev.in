@@ -102,7 +102,7 @@ export default async function ProjectPage({
             Have a project like this?
           </p>
           <Link
-            href="/#contact"
+            href="/contact"
             className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background"
           >
             Start a project <ArrowUpRight className="size-4" />

@@ -55,7 +55,7 @@ export function FloatingActions() {
                 {["Website", "Branding", "Video", "AI automation"].map((s) => (
                   <a
                     key={s}
-                    href="/#contact"
+                    href="/contact"
                     className="rounded-full border border-border/60 bg-secondary/60 px-3 py-1 text-xs hover:bg-secondary"
                   >
                     {s}

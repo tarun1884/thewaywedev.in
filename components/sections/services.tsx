@@ -100,7 +100,7 @@ function ServiceCard({
               <p className="font-display text-xl font-semibold">{formatPrice(service.startsAt)}</p>
             </div>
             <Link
-              href="/#contact"
+              href="/contact"
               className="text-xs font-medium underline-offset-4 hover:underline"
             >
               Get a quote →

@@ -120,7 +120,7 @@ export function Hero() {
             className="mt-9 flex flex-wrap items-center gap-3"
           >
             <Button asChild size="lg" variant="accent">
-              <Link href="/#contact">
+              <Link href="/contact">
                 Start a project <ArrowRight className="size-4" />
               </Link>
             </Button>

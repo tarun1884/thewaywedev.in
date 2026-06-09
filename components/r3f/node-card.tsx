@@ -127,7 +127,7 @@ export function NodeCard({ service, onClose }: Props) {
           {/* CTA */}
           <div className="mt-7 flex items-center gap-4">
             <a
-              href="#contact"
+              href="/contact"
               onClick={onClose}
               className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:brightness-110"
               style={{

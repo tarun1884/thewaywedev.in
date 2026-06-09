@@ -37,7 +37,7 @@ export function CTA() {
 
             <div className="flex flex-col gap-3 lg:col-span-2">
               <Button asChild variant="accent" size="lg" className="w-full">
-                <Link href="/#contact">
+                <Link href="/contact">
                   <Calendar className="size-4" /> Book a free strategy call
                 </Link>
               </Button>

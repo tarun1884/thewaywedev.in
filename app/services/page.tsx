@@ -48,7 +48,7 @@ export default function ServicesPage() {
                     <p className="font-display text-2xl font-semibold">{formatPrice(s.startsAt)}</p>
                   </div>
                   <Button asChild variant="accent" className="mt-5">
-                    <Link href="/#contact">Start a {s.title.toLowerCase()} project</Link>
+                    <Link href="/contact">Start a {s.title.toLowerCase()} project</Link>
                   </Button>
                 </div>
                 <div className="sm:col-span-3">
