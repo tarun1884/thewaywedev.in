@@ -46,8 +46,7 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer className="relative mt-32 border-t border-border/60 bg-background">
-      <div aria-hidden className="pointer-events-none absolute inset-0 grid-pattern opacity-30" />
+    <footer className="relative mt-24 border-t-2 border-bp-ink bg-bp-paper">
       <div className="container-px relative mx-auto max-w-7xl py-16">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
@@ -60,18 +59,18 @@ export function Footer() {
                 className="h-16 w-auto"
               />
             </Link>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-4 max-w-sm font-text text-sm leading-relaxed text-bp-muted">
               {siteConfig.description}
             </p>
-            <div className="mt-6 flex items-center gap-2">
-              {socials.map(({ Icon, href, label }) => (
+            <div className="mt-6 flex items-center gap-0 border border-bp-line">
+              {socials.map(({ Icon, href, label }, i) => (
                 <a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noreferrer"
                   aria-label={label}
-                  className="grid size-9 place-items-center rounded-full border border-border/60 bg-secondary/40 text-muted-foreground hover:bg-secondary hover:text-foreground"
+                  className={`grid size-9 place-items-center text-bp-muted transition-colors hover:bg-bp-ink hover:text-bp-paper ${i !== 0 ? "border-l border-bp-line" : ""}`}
                 >
                   <Icon className="size-4" />
                 </a>
@@ -82,7 +81,7 @@ export function Footer() {
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-8">
             {cols.map((col) => (
               <div key={col.heading}>
-                <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <h3 className="bp-label mb-4 border-b border-bp-line pb-2">
                   {col.heading}
                 </h3>
                 <ul className="space-y-2.5">
@@ -90,7 +89,7 @@ export function Footer() {
                     <li key={l.href}>
                       <Link
                         href={l.href}
-                        className="text-sm text-foreground/80 transition-colors hover:text-foreground"
+                        className="font-text text-sm text-bp-muted transition-colors hover:text-bp-ink"
                       >
                         {l.label}
                       </Link>
@@ -102,17 +101,17 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-border/60 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center">
-          <p>
-            © {new Date().getFullYear()} {siteConfig.fullName}. Crafted with care since {siteConfig.since}.
+        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-bp-line pt-6 sm:flex-row sm:items-center">
+          <p className="bp-label normal-case tracking-normal">
+            © {new Date().getFullYear()} {siteConfig.fullName}. Since {siteConfig.since}.
           </p>
-          <div className="flex flex-wrap items-center gap-4">
-            <Link href="/privacy" className="hover:text-foreground">Privacy</Link>
-            <Link href="/terms" className="hover:text-foreground">Terms</Link>
-            <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} className="hover:text-foreground">
+          <div className="flex flex-wrap items-center gap-4 font-mono text-[11px] text-bp-muted">
+            <Link href="/privacy" className="hover:text-bp-ink">Privacy</Link>
+            <Link href="/terms" className="hover:text-bp-ink">Terms</Link>
+            <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} className="hover:text-bp-ink">
               {siteConfig.phone}
             </a>
-            <a href={`mailto:${siteConfig.email}`} className="hover:text-foreground">
+            <a href={`mailto:${siteConfig.email}`} className="hover:text-bp-ink">
               {siteConfig.email}
             </a>
           </div>

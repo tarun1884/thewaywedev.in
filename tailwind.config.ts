@@ -40,6 +40,17 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        /* ── Blueprint Assembly design system ── */
+        bp: {
+          paper: "#EAE6DC",   // page background (parchment)
+          surface: "#F7F4ED", // raised module / panel
+          ink: "#102033",     // primary text (navy)
+          muted: "#657081",   // secondary text
+          rule: "#A8B3BF",    // blueprint hairlines
+          line: "#CBC6BA",    // softer rules on paper
+          accent: "#D96A3B",  // single burnt-orange accent
+          "accent-ink": "#B5501F",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -49,6 +60,7 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         display: ["var(--font-display)", "system-ui", "sans-serif"],
+        text: ["var(--font-text)", "var(--font-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       keyframes: {
@@ -67,6 +79,10 @@ const config: Config = {
         "gradient-x": {
           "0%, 100%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" },
+        },
+        "draw-line": {
+          "0%": { strokeDashoffset: "1" },
+          "100%": { strokeDashoffset: "0" },
         },
       },
       animation: {

@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X, Command } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -22,17 +21,17 @@ export function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
       className={cn(
-        "fixed inset-x-0 top-0 z-40 transition-all duration-300",
-        scrolled ? "py-2" : "py-4"
+        "fixed inset-x-0 top-0 z-40 border-b transition-all duration-300",
+        scrolled
+          ? "border-bp-line bg-bp-paper/95 backdrop-blur-md"
+          : "border-transparent bg-bp-paper/70 backdrop-blur-sm"
       )}
     >
       <div className="container-px mx-auto max-w-7xl">
         <nav
           className={cn(
-            "flex items-center justify-between rounded-full border px-4 py-2 transition-all duration-300",
-            scrolled
-              ? "border-black/8 bg-white/80 backdrop-blur-xl shadow-sm"
-              : "border-black/6 bg-white/60 backdrop-blur-md"
+            "flex items-center justify-between transition-all duration-300",
+            scrolled ? "py-2.5" : "py-4"
           )}
           aria-label="Primary"
         >
@@ -47,12 +46,12 @@ export function Navbar() {
             />
           </Link>
 
-          <ul className="hidden items-center gap-1 md:flex">
+          <ul className="hidden items-center gap-7 md:flex">
             {siteConfig.nav.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="rounded-full px-3 py-1.5 text-sm text-black/50 transition-colors hover:bg-black/5 hover:text-black"
+                  className="font-mono text-[11px] uppercase tracking-[0.14em] text-bp-muted transition-colors hover:text-bp-ink"
                 >
                   {item.label}
                 </Link>
@@ -60,24 +59,27 @@ export function Navbar() {
             ))}
           </ul>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={() =>
                 window.dispatchEvent(new CustomEvent("command-menu:open"))
               }
-              className="hidden items-center gap-2 rounded-full border border-border/60 bg-secondary/50 px-3 py-1.5 text-xs text-muted-foreground hover:bg-secondary md:inline-flex"
+              className="hidden items-center gap-2 border border-bp-line px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-bp-muted hover:border-bp-ink hover:text-bp-ink md:inline-flex"
               aria-label="Open command menu"
             >
               <Command className="size-3" />
               <span>K</span>
             </button>
-            <Button asChild size="sm" variant="accent" className="hidden sm:inline-flex">
-              <Link href="/contact">Start a project</Link>
-            </Button>
+            <Link
+              href="/contact"
+              className="hidden bg-bp-ink px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-bp-paper transition-colors hover:bg-bp-accent sm:inline-flex"
+            >
+              Start a project
+            </Link>
             <button
               type="button"
-              className="md:hidden grid size-9 place-items-center rounded-full border border-border/60"
+              className="grid size-9 place-items-center border border-bp-line text-bp-ink md:hidden"
               onClick={() => setOpen((s) => !s)}
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
@@ -98,25 +100,27 @@ export function Navbar() {
           transition={{ duration: 0.25 }}
           className="overflow-hidden md:hidden"
         >
-          <div className="rounded-2xl border border-border/60 bg-background/80 p-3 backdrop-blur-xl">
-            <ul className="flex flex-col">
+          <div className="mb-3 border border-bp-line bg-bp-surface">
+            <ul className="flex flex-col divide-y divide-bp-line">
               {siteConfig.nav.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block rounded-xl px-3 py-2.5 text-sm hover:bg-secondary"
+                    className="block px-4 py-3 font-mono text-xs uppercase tracking-[0.14em] text-bp-ink hover:bg-bp-paper"
                   >
                     {item.label}
                   </Link>
                 </li>
               ))}
-              <li className="pt-2">
-                <Button asChild variant="accent" className="w-full">
-                  <Link href="/contact" onClick={() => setOpen(false)}>
-                    Start a project
-                  </Link>
-                </Button>
+              <li>
+                <Link
+                  href="/contact"
+                  onClick={() => setOpen(false)}
+                  className="block bg-bp-ink px-4 py-3 text-center font-mono text-xs uppercase tracking-[0.14em] text-bp-paper"
+                >
+                  Start a project
+                </Link>
               </li>
             </ul>
           </div>
