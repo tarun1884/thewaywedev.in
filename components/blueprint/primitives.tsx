@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -58,6 +59,54 @@ export function SectionHeader({
         ) : null}
       </div>
     </div>
+  );
+}
+
+/* ── Inner-page masthead (report cover) ──────────────────────────── */
+export function PageMasthead({
+  index,
+  label,
+  title,
+  intro,
+  right,
+  back,
+}: {
+  index: string;
+  label: string;
+  title: React.ReactNode;
+  intro?: React.ReactNode;
+  right?: React.ReactNode;
+  back?: { href: string; label: string };
+}) {
+  return (
+    <header className="bp-grid border-b border-bp-line bg-bp-paper">
+      <div className="container-px mx-auto max-w-7xl pt-28 pb-14 sm:pt-32 lg:pt-36">
+        {back ? (
+          <Link
+            href={back.href}
+            className="mb-8 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-bp-muted transition-colors hover:text-bp-ink"
+          >
+            <span aria-hidden>←</span> {back.label}
+          </Link>
+        ) : null}
+        <div className="flex items-center justify-between border-y border-bp-ink/20 py-2.5">
+          <span className="bp-label flex items-center gap-2 text-bp-ink">
+            <span className="text-bp-accent">{index}</span> {label}
+          </span>
+          {right ? <span className="bp-label">{right}</span> : null}
+        </div>
+        <div className="mt-10 grid gap-6 lg:grid-cols-12">
+          <h1 className="font-display text-[2.5rem] font-semibold leading-[1.02] tracking-[-0.03em] text-bp-ink sm:text-6xl lg:col-span-8">
+            {title}
+          </h1>
+          {intro ? (
+            <p className="font-text text-[15px] leading-relaxed text-bp-muted lg:col-span-4 lg:pt-2">
+              {intro}
+            </p>
+          ) : null}
+        </div>
+      </div>
+    </header>
   );
 }
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SectionHeading } from "@/components/ui/section-heading";
 import { posts } from "@/lib/posts";
+import { PageMasthead } from "@/components/blueprint/primitives";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -11,34 +11,44 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   return (
-    <div className="pt-32 sm:pt-40">
-      <div className="container-px mx-auto max-w-4xl">
-        <SectionHeading eyebrow="Field notes" title={<>Writing.</>} />
+    <>
+      <PageMasthead
+        index="§ FIELD NOTES"
+        label="WRITING / LOG"
+        right={`${posts.length} NOTES`}
+        title="Field notes."
+        intro="Working notes on design, code, motion, and AI from the studio — what we're learning as we ship."
+      />
 
-        <div className="mt-12 space-y-3 pb-24">
-          {posts.map((p) => (
+      <div className="bg-bp-paper">
+        <div className="container-px mx-auto max-w-4xl py-14 sm:py-16">
+          {posts.map((p, i) => (
             <Link
               key={p.slug}
               href={`/blog/${p.slug}`}
-              className="group flex items-start justify-between gap-6 rounded-2xl border border-border/60 bg-card/40 p-6 backdrop-blur transition-colors hover:border-border hover:bg-card/70"
+              className="group grid gap-3 border-b border-bp-line py-8 transition-colors hover:bg-bp-surface sm:grid-cols-12 sm:gap-6"
             >
-              <div>
-                <p className="text-xs text-muted-foreground">
-                  {new Date(p.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })} ·{" "}
+              <div className="sm:col-span-3">
+                <div className="font-mono text-[11px] text-bp-accent">
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <time className="bp-label mt-2 block normal-case tracking-normal">
+                  {new Date(p.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                </time>
+                <span className="bp-label mt-1 block normal-case tracking-normal">
                   {p.readingMin} min read
-                </p>
-                <h2 className="mt-2 font-display text-xl font-semibold tracking-tight sm:text-2xl">
+                </span>
+              </div>
+              <div className="sm:col-span-9">
+                <h2 className="font-display text-xl font-semibold tracking-[-0.01em] text-bp-ink group-hover:text-bp-ink/70 sm:text-2xl">
                   {p.title}
                 </h2>
-                <p className="mt-2 text-sm text-muted-foreground">{p.excerpt}</p>
+                <p className="mt-2 font-text text-[14px] leading-relaxed text-bp-muted">{p.excerpt}</p>
               </div>
-              <span className="hidden shrink-0 self-center text-xl text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground sm:block">
-                →
-              </span>
             </Link>
           ))}
         </div>
       </div>
-    </div>
+    </>
   );
 }

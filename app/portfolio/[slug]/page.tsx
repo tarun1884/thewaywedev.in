@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/lib/projects";
+import { PageMasthead } from "@/components/blueprint/primitives";
 
 type Params = { slug: string };
 
@@ -41,69 +42,80 @@ export default async function ProjectPage({
   if (!project) notFound();
 
   return (
-    <article className="pt-32 sm:pt-40">
-      <div className="container-px mx-auto max-w-5xl">
-        <Link
-          href="/portfolio"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="size-3.5" /> Back to work
-        </Link>
+    <article className="bg-bp-paper">
+      <PageMasthead
+        back={{ href: "/portfolio", label: "Back to work" }}
+        index={`${project.category.toUpperCase()}`}
+        label="CASE-STUDY DOSSIER"
+        right={`${project.client} — ${project.year}`}
+        title={project.title}
+        intro={project.blurb}
+      />
 
-        <div className="mt-6 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-          <span className="rounded-full border border-border/60 bg-secondary/50 px-2.5 py-1 font-medium uppercase tracking-wider">
-            {project.category}
-          </span>
-          <span>{project.client} · {project.year}</span>
-        </div>
-
-        <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-6xl">
-          {project.title}
-        </h1>
-        <p className="mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">{project.blurb}</p>
-
-        <div className="mt-10 overflow-hidden rounded-3xl border border-border/60">
+      <div className="container-px mx-auto max-w-7xl py-14">
+        <div className="bp-frame overflow-hidden">
           <div className="relative aspect-[21/10] w-full">
             <Image src={project.cover} alt={project.title} fill priority sizes="100vw" className="object-cover" />
           </div>
         </div>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-3">
-          {project.metrics.map((m) => (
-            <div key={m.label} className="rounded-2xl border border-border/60 bg-card/60 p-6 backdrop-blur">
-              <p className="font-display text-3xl font-semibold tracking-tight">{m.value}</p>
-              <p className="mt-1 text-xs text-muted-foreground">{m.label}</p>
+        {/* metrics ledger */}
+        <div className="mt-px grid border border-bp-line sm:grid-cols-3">
+          {project.metrics.map((m, i) => (
+            <div key={m.label} className={`bg-bp-surface p-6 ${i !== 0 ? "border-t border-bp-line sm:border-l sm:border-t-0" : ""}`}>
+              <p className="font-mono text-3xl font-semibold tracking-tight text-bp-ink">{m.value}</p>
+              <p className="bp-label mt-2">{m.label}</p>
             </div>
           ))}
         </div>
 
-        <div className="mt-16 prose prose-neutral dark:prose-invert max-w-none">
-          <h2>The brief</h2>
-          <p>
-            {project.client} came to us with a goal: reposition for a new market and ship the supporting
-            digital surfaces in a tight window. We led discovery, strategy, design, and delivery end-to-end.
-          </p>
-          <h2>Approach</h2>
-          <ul>
-            <li>Stakeholder interviews and competitive teardown in week one.</li>
-            <li>Strategy doc & messaging house signed off before any design.</li>
-            <li>High-fidelity prototype reviewed in three iterations.</li>
-            <li>Production build with performance budgets enforced in CI.</li>
-          </ul>
-          <h2>Outcome</h2>
-          <p>
-            The launch shipped on time and exceeded every target metric within 30 days. The team adopted the
-            new design system internally and we now run a small monthly retainer for ongoing experiments.
-          </p>
+        {/* body */}
+        <div className="mt-14 grid gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            {[
+              {
+                h: "The brief",
+                b: `${project.client} came to us with a goal: reposition for a new market and ship the supporting digital surfaces in a tight window. We led discovery, strategy, design, and delivery end-to-end.`,
+              },
+              {
+                h: "Outcome",
+                b: "The launch shipped on time and exceeded every target metric within 30 days. The team adopted the new design system internally and we now run a small monthly retainer for ongoing experiments.",
+              },
+            ].map((s) => (
+              <section key={s.h} className="mb-10 border-t-2 border-bp-ink pt-5">
+                <h2 className="bp-label mb-3">{s.h}</h2>
+                <p className="font-text text-[15px] leading-relaxed text-bp-ink/90">{s.b}</p>
+              </section>
+            ))}
+          </div>
+
+          <aside className="lg:col-span-4">
+            <div className="border-t-2 border-bp-ink pt-5">
+              <h2 className="bp-label mb-4">Approach</h2>
+              <ol className="space-y-3">
+                {[
+                  "Stakeholder interviews & teardown, week one",
+                  "Strategy & messaging signed off before design",
+                  "High-fidelity prototype, three iterations",
+                  "Production build, perf budgets in CI",
+                ].map((step, i) => (
+                  <li key={i} className="flex gap-3 font-text text-[13px] leading-snug text-bp-muted">
+                    <span className="font-mono text-[11px] text-bp-accent">0{i + 1}</span>
+                    {step}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </aside>
         </div>
 
-        <div className="mt-16 flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-border/60 bg-card/60 p-8 backdrop-blur">
-          <p className="font-display text-xl font-semibold tracking-tight sm:text-2xl">
+        <div className="mt-8 flex flex-col items-start justify-between gap-5 border border-bp-line bg-bp-ink p-8 sm:flex-row sm:items-center">
+          <p className="font-display text-2xl font-semibold text-bp-paper">
             Have a project like this?
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background"
+            className="inline-flex items-center gap-2 border border-bp-paper/30 px-6 py-3 font-mono text-xs uppercase tracking-[0.14em] text-bp-paper transition-colors hover:bg-bp-paper hover:text-bp-ink"
           >
             Start a project <ArrowUpRight className="size-4" />
           </Link>

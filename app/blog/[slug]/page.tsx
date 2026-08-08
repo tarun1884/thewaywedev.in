@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { posts, getPost } from "@/lib/posts";
+import { PageMasthead } from "@/components/blueprint/primitives";
 
 type Params = { slug: string };
 
@@ -35,47 +35,35 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   return (
-    <article className="pt-32 sm:pt-40">
-      <div className="container-px mx-auto max-w-3xl pb-24">
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="size-4" /> Back to all articles
-        </Link>
+    <article className="bg-bp-paper">
+      <PageMasthead
+        back={{ href: "/blog", label: "Back to all articles" }}
+        index="§ FIELD NOTE"
+        label="WRITING / LOG"
+        right={`${new Date(post.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })} · ${post.readingMin} MIN`}
+        title={post.title}
+        intro={post.excerpt}
+      />
 
-        <p className="mt-8 text-xs text-muted-foreground">
-          {new Date(post.date).toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-          })}{" "}
-          · {post.readingMin} min read
-        </p>
-
-        <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-          {post.title}
-        </h1>
-
-        <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-          {post.excerpt}
-        </p>
-
-        <div className="mt-10 space-y-6">
+      <div className="container-px mx-auto max-w-3xl py-14 pb-24">
+        <div className="border-t-2 border-bp-ink pt-6">
+          <span className="bp-label">FULL NOTE</span>
+        </div>
+        <div className="mt-6 space-y-6">
           {post.body.map((para, i) => (
-            <p key={i} className="text-base leading-relaxed text-foreground/90">
+            <p key={i} className="font-text text-[16px] leading-[1.75] text-bp-ink/90">
               {para}
             </p>
           ))}
         </div>
 
-        <div className="mt-14 flex flex-wrap items-center gap-4 rounded-3xl border border-border/60 bg-card/60 p-8 backdrop-blur">
-          <p className="font-display text-xl font-semibold tracking-tight">
+        <div className="mt-14 flex flex-col items-start justify-between gap-5 border border-bp-line bg-bp-ink p-8 sm:flex-row sm:items-center">
+          <p className="font-display text-2xl font-semibold text-bp-paper">
             Want results like these?
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background"
+            className="inline-flex items-center gap-2 border border-bp-paper/30 px-6 py-3 font-mono text-xs uppercase tracking-[0.14em] text-bp-paper transition-colors hover:bg-bp-paper hover:text-bp-ink"
           >
             Start a project
           </Link>
