@@ -32,7 +32,7 @@ const initial: FormState = {
   website: "",
 };
 
-const budgets = ["<5k", "5-15k", "15-50k", "50k+", "Not sure"];
+const budgets = ["<₹5L", "₹5-15L", "₹15-50L", "₹50L+", "Not sure"];
 const timelines = ["ASAP", "1-3 months", "3-6 months", "Exploring"];
 
 export function Contact() {
@@ -263,7 +263,7 @@ function StepScope({ form, set }: { form: FormState; set: <K extends keyof FormS
         <p className="mt-1 text-sm text-muted-foreground">Approximate is fine.</p>
         <div className="mt-4 flex flex-wrap gap-2">
           {budgets.map((b) => (
-            <Chip key={b} active={form.budget === b} onClick={() => set("budget", b)}>{b === "Not sure" ? b : `$${b}`}</Chip>
+            <Chip key={b} active={form.budget === b} onClick={() => set("budget", b)}>{b}</Chip>
           ))}
         </div>
       </div>

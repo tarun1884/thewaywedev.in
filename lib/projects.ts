@@ -37,7 +37,7 @@ export const projects: Project[] = [
     blurb: "Shopify Hydrogen build with 2.3× higher mobile checkout completion.",
     metrics: [
       { label: "Mobile conv.", value: "+138%" },
-      { label: "Revenue", value: "+$2.4M" },
+      { label: "Revenue", value: "+₹20Cr" },
       { label: "CLS", value: "0.01" },
     ],
     tags: ["Hydrogen", "UX", "Performance"],

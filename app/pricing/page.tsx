@@ -13,7 +13,7 @@ const TIERS = [
   {
     id: "T1",
     name: "Launch Sprint",
-    price: "$6k",
+    price: "₹5L",
     window: "21 days",
     for: "Seed / pre-launch teams needing a credible v1 fast.",
     includes: ["1–5 page marketing site", "Brand-aligned design system", "Next.js build + deploy", "Basic SEO + analytics", "1 revision round"],
@@ -22,7 +22,7 @@ const TIERS = [
   {
     id: "T2",
     name: "Growth Build",
-    price: "$15k+",
+    price: "₹12L+",
     window: "4–6 weeks",
     for: "Companies scaling their site into a real growth engine.",
     includes: ["Full site (8–15 pages)", "Custom component library", "CMS integration", "Core Web Vitals tuning", "Programmatic SEO setup", "30-day optimization sprint"],
@@ -31,7 +31,7 @@ const TIERS = [
   {
     id: "T3",
     name: "Custom Platform",
-    price: "$50k+",
+    price: "₹40L+",
     window: "6–12 weeks",
     for: "Bespoke commerce, apps, or AI systems built end-to-end.",
     includes: ["Custom architecture", "Commerce / app / AI build", "Type-safe APIs + DB", "Auth, roles, integrations", "CI perf budgets", "Ongoing retainer option"],
@@ -44,7 +44,7 @@ const FAQS = [
   { q: "Who owns the code and design files?", a: "You do. 100%. Source files, design tokens, code, and content rights transfer to you on final invoice. We use your GitHub or set one up for you." },
   { q: "Do you work with early-stage startups?", a: "Yes — about 40% of our work is with seed to Series A teams. Our 21-day Launch Sprint is designed to ship a credible v1 fast." },
   { q: "What's included in post-launch support?", a: "30 days of analytics setup, performance monitoring, bug fixes, content updates, and a written optimization report with the next 3 highest-impact moves." },
-  { q: "Do you offer ongoing retainers?", a: "Yes — monthly retainers start at $4,500/mo for design + dev, with dedicated hours for new features, experiments, and content production." },
+  { q: "Do you offer ongoing retainers?", a: "Yes — monthly retainers start at ₹3,50,000/mo for design + dev, with dedicated hours for new features, experiments, and content production." },
 ];
 
 export default function PricingPage() {

@@ -4,7 +4,7 @@ import * as React from "react";
 import { Check, Loader2 } from "lucide-react";
 
 const SERVICES = ["Web Development", "UI/UX Design", "E-commerce", "Performance SEO", "Branding", "AI Automation"];
-const BUDGETS = ["<5k", "5-15k", "15-50k", "50k+", "Not sure"] as const;
+const BUDGETS = ["<₹5L", "₹5-15L", "₹15-50L", "₹50L+", "Not sure"] as const;
 const TIMELINES = ["ASAP", "1-3 months", "3-6 months", "Exploring"] as const;
 
 type Status = "idle" | "sending" | "ok" | "error";

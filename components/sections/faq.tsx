@@ -28,7 +28,7 @@ const faqs = [
   },
   {
     q: "Do you offer ongoing retainers?",
-    a: "Yes — monthly retainers start at $4,500/mo for design + dev, with dedicated hours for new features, experiments, and content production.",
+    a: "Yes — monthly retainers start at ₹3,50,000/mo for design + dev, with dedicated hours for new features, experiments, and content production.",
   },
 ];
 
