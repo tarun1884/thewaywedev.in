@@ -13,7 +13,7 @@ const TIERS = [
   {
     id: "T1",
     name: "Launch Sprint",
-    price: "₹5L",
+    price: "₹5k",
     window: "21 days",
     for: "Seed / pre-launch teams needing a credible v1 fast.",
     includes: ["1–5 page marketing site", "Brand-aligned design system", "Next.js build + deploy", "Basic SEO + analytics", "1 revision round"],
@@ -22,7 +22,7 @@ const TIERS = [
   {
     id: "T2",
     name: "Growth Build",
-    price: "₹12L+",
+    price: "₹12k+",
     window: "4–6 weeks",
     for: "Companies scaling their site into a real growth engine.",
     includes: ["Full site (8–15 pages)", "Custom component library", "CMS integration", "Core Web Vitals tuning", "Programmatic SEO setup", "30-day optimization sprint"],
@@ -31,7 +31,7 @@ const TIERS = [
   {
     id: "T3",
     name: "Custom Platform",
-    price: "₹40L+",
+    price: "₹40k+",
     window: "6–12 weeks",
     for: "Bespoke commerce, apps, or AI systems built end-to-end.",
     includes: ["Custom architecture", "Commerce / app / AI build", "Type-safe APIs + DB", "Auth, roles, integrations", "CI perf budgets", "Ongoing retainer option"],
