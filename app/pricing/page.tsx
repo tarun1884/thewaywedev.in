@@ -12,27 +12,18 @@ export const metadata: Metadata = {
 const TIERS = [
   {
     id: "T1",
-    name: "Launch Sprint",
-    price: "₹5k",
-    window: "21 days",
-    for: "Seed / pre-launch teams needing a credible v1 fast.",
-    includes: ["1–5 page marketing site", "Brand-aligned design system", "Next.js build + deploy", "Basic SEO + analytics", "1 revision round"],
-    featured: false,
-  },
-  {
-    id: "T2",
     name: "Growth Build",
     price: "₹12k+",
-    window: "4–6 weeks",
+    window: "1 week",
     for: "Companies scaling their site into a real growth engine.",
     includes: ["Full site (8–15 pages)", "Custom component library", "CMS integration", "Core Web Vitals tuning", "Programmatic SEO setup", "30-day optimization sprint"],
     featured: true,
   },
   {
-    id: "T3",
+    id: "T2",
     name: "Custom Platform",
     price: "₹40k+",
-    window: "6–12 weeks",
+    window: "2-8 weeks",
     for: "Bespoke commerce, apps, or AI systems built end-to-end.",
     includes: ["Custom architecture", "Commerce / app / AI build", "Type-safe APIs + DB", "Auth, roles, integrations", "CI perf budgets", "Ongoing retainer option"],
     featured: false,
@@ -76,7 +67,7 @@ export default function PricingPage() {
       <div className="bg-bp-paper">
         <div className="container-px mx-auto max-w-7xl py-16 sm:py-20">
           {/* tiers */}
-          <div className="grid gap-px border border-bp-line bg-bp-line lg:grid-cols-3">
+          <div className="mx-auto grid max-w-4xl gap-px border border-bp-line bg-bp-line sm:grid-cols-2">
             {TIERS.map((t) => (
               <div
                 key={t.id}
