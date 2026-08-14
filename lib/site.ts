@@ -4,10 +4,10 @@ export const siteConfig = {
   tagline: "We build digital experiences that convert.",
   description:
     "A modern digital agency crafting websites, brands, motion, and AI-powered systems for ambitious companies.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://thewaywedev.in",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://thewaywedev.in",
   email: "thewaywedev@gmail.com",
   phone: "+91 72099 81884",
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "917209981884",
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "917209981884",
   cal: process.env.NEXT_PUBLIC_CAL_LINK ?? "thewaywedev/consultation",
   since: 2024,
   social: {
